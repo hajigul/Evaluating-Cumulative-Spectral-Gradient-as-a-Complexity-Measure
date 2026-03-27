@@ -29,7 +29,7 @@ Illustration of the proposed methodology. Triplets (head, relation, tail) are gr
 ![Figure 2: CSG vs M and K](m1.png)
 Left box showing triplets where the heads are \((h_1, h_2, \ldots, h_k)\) (green), relations \((r_1, r_2, \ldots, r_k)\), and tails \((t_1, t_2, t_3)\) (in blue, yellow, and purple). The next box denotes the grouping of their tail entities into classes: \(c_1\) for \(t_1\), with \((h_1, r_1, t_1)\) and \((h_2, r_2, t_1)\) belonging to the same class, for example. BERT is used to embed head-relation pairs, producing 768-dimensional vectors, which are then concatenated (e.g., \(h_1 \oplus r_1\) and \(h_2 \oplus r_2\)) for each class \(c_i\). Next, a sampled \(k\)-nearest neighbor search is performed to compute distances and construct a similarity matrix \(S \in \mathbb{R}^{K \times K}\). The Laplacian matrix \(L\) is obtained from \(S\), and the spectral complexity of the KG is quantified using the Cumulative Spectral Gradient (CSG) calculated from its eigenvalues.
 
-### Figure 2: CSG as a Surface Function of M and K (CoDEx-S Dataset)
+### Figure 2: CSG as a Surface Function of M and K 
 It shows how CSG values change with varying Monte Carlo sample size **M** and nearest-neighbor parameter **K** on the CoDEx-S dataset. The plot demonstrates strong sensitivity to **K**, contradicting earlier claims of parameter stability.
 
 ![Figure 2: CSG vs M and K](kkmm.png)  
