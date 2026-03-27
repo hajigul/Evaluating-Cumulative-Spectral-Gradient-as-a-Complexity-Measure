@@ -31,7 +31,7 @@ Illustration of the proposed methodology. Triplets (head, relation, tail) are gr
 **Description:**  
 3D surface plot showing how CSG values change with varying Monte Carlo sample size **M** and nearest-neighbor parameter **K** on the CoDEx-S dataset. The plot demonstrates strong sensitivity to **K**, contradicting earlier claims of parameter stability.
 
-*(See `figures/Figure2.png`)*
+*(See `m1.png`)*
 
 ### Figure 3: CSG vs. K (Fixed M = 100)
 **Description:**  
