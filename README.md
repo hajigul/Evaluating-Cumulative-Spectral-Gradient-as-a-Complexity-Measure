@@ -25,26 +25,31 @@ Through extensive experiments on **FB15k-237**, **WN18RR**, CoDEx variants, and 
 **Description:**  
 Illustration of the proposed methodology. Triplets (head, relation, tail) are grouped by tail entities as classes. BERT embeddings are generated for head-relation pairs (concatenated), a similarity matrix **S** is constructed via k-NN search, the normalized graph Laplacian is computed, and the **Cumulative Spectral Gradient (CSG)** is derived from its eigenvalues.
 
-*(See `figures/Figure1.png` or the paper for the full diagram)*
+*(See Fig-1 or the paper for the full diagram)*
 ![Figure 2: CSG vs M and K](m1.png)
+Left box showing triplets where the heads are \((h_1, h_2, \ldots, h_k)\) green, relations \((r_1, r_2, \ldots, r_k)\), tails \((t_1, t_2, t_3)\) are in blue, yellow and purple. The next box denotes the grouping of their tail entities into classes: \(c_1\) for \(t_1\), with \((h_1, r_1, t_1)\) and, \((h_2, r_2, t_1)\) belonging to the same class, for example. BERT is used to embed head-relation pairs, producing 768-dimensional vectors, and then concatenates them, such as \(h_1 \oplus r_1\) and \(h_2 \oplus r_2\), for class \(c_i\). Next, a sampled \textit{K} search is performed to compute distances and a similarity matrix \(S \in \mathbb{R}^{K \times K}\). The Laplacian matrix \(L\) is obtained, and \(S\) the spectral complexity of the KG is quantified using the CSG calculated from its eigenvalues.
 
 ### Figure 2: CSG as a Surface Function of M and K (CoDEx-S Dataset)
 **Description:**  
 3D surface plot showing how CSG values change with varying Monte Carlo sample size **M** and nearest-neighbor parameter **K** on the CoDEx-S dataset. The plot demonstrates strong sensitivity to **K**, contradicting earlier claims of parameter stability.
 
 *(See `m1.png`)*
+![Figure 2: CSG vs M and K](kkmm.png)
+CSG as a function of $M$ and $K$ values.
 
 ### Figure 3: CSG vs. K (Fixed M = 100)
 **Description:**  
 Line plot illustrating the strong influence of the nearest-neighbor parameter **K** on CSG values across multiple datasets (at M = 100). Larger **K** values generally lead to higher perceived complexity.
 
-*(See `figures/Figure3.png`)*
+![Figure 2: CSG vs M and K](csg_k.png)
+A plot of CSG as a function of $K$ values at $M = 100$.
 
 ### Figure 4: CSG vs. Model Performance (MRR)
 **Description:**  
 Scatter plot showing the relationship between CSG values and Mean Reciprocal Rank (MRR) achieved by various tail-prediction models across five standard KG benchmarks. The mean Pearson correlation is near zero (**R ≈ -0.644** in the paper), indicating that CSG does **not** reliably predict downstream link-prediction performance.
 
-*(See `figures/Figure4.png`)*
+![Figure 2: CSG vs M and K](csg_mrr.png)
+Relationship Between MRR from different tail-prediction models on five standard KG datasets and the corresponding CSG values.
 
 ---
 
