@@ -32,20 +32,23 @@ Left box showing triplets where the heads are \((h_1, h_2, \ldots, h_k)\) (green
 ### Figure 2: CSG as a Surface Function of M and K (CoDEx-S Dataset)
 It shows how CSG values change with varying Monte Carlo sample size **M** and nearest-neighbor parameter **K** on the CoDEx-S dataset. The plot demonstrates strong sensitivity to **K**, contradicting earlier claims of parameter stability.
 
-![Figure 2: CSG vs M and K](kkmm.png)
+![Figure 2: CSG vs M and K](kkmm.png)  
+
 CSG as a function of $M$ and $K$ values.
 
 
 ### Figure 3: CSG vs. K (Fixed M = 100)
 It illustrats the strong influence of the nearest-neighbor parameter **K** on CSG values across multiple datasets (at M = 100). Larger **K** values generally lead to higher perceived complexity.
 
-![Figure 2: CSG vs M and K](csg_k.png)
+![Figure 2: CSG vs M and K](csg_k.png)  
+
 A plot of CSG as a function of $K$ values at $M = 100$.
 
 ### Figure 4: CSG vs. Model Performance (MRR)
 It shows the relationship between CSG values and Mean Reciprocal Rank (MRR) achieved by various tail-prediction models across five standard KG benchmarks. The mean Pearson correlation is near zero (**R ≈ -0.644** in the paper), indicating that CSG does **not** reliably predict downstream link-prediction performance.
 
-![Figure 2: CSG vs M and K](csg_mrr.png)
+![Figure 2: CSG vs M and K](csg_mrr.png)  
+
 Relationship Between MRR from different tail-prediction models on five standard KG datasets and the corresponding CSG values.
 
 ---
