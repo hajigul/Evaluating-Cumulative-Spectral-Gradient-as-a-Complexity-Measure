@@ -26,6 +26,7 @@ Through extensive experiments on **FB15k-237**, **WN18RR**, CoDEx variants, and 
 Illustration of the proposed methodology. Triplets (head, relation, tail) are grouped by tail entities as classes. BERT embeddings are generated for head-relation pairs (concatenated), a similarity matrix **S** is constructed via k-NN search, the normalized graph Laplacian is computed, and the **Cumulative Spectral Gradient (CSG)** is derived from its eigenvalues.
 
 *(See `figures/Figure1.png` or the paper for the full diagram)*
+![Figure 2: CSG vs M and K](m1.png)
 
 ### Figure 2: CSG as a Surface Function of M and K (CoDEx-S Dataset)
 **Description:**  
