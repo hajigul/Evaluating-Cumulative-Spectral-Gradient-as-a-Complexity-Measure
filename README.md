@@ -71,8 +71,6 @@ csg-kg-complexity/
 │   ├── utils.py
 │   └── main.py
 |   └── run_all_datasets.py
-├── scripts/
-│   └── run_all_datasets.py
 ├── data/                     # ← Place your KG datasets here 
 ├── results/                  # CSG output files
 
