@@ -74,7 +74,7 @@ csg-kg-complexity/
 ├── data/                     # ← Place your KG datasets here 
 ├── results/                  # CSG output files
 
-
+```
 
 @inproceedings{gul2025csg,
   title={Evaluating Cumulative Spectral Gradient as a Complexity Measure},
