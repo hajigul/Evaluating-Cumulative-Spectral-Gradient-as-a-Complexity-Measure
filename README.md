@@ -76,6 +76,22 @@ csg-kg-complexity/
 
 ```
 
+
+
+
+
+
+## Poster   
+![Figure 2: CSG vs M and K](KG-CSG_1.png)  
+
+
+![Figure 2: CSG vs M and K](KG-CSG_2.png)  
+
+
+
+
+
+
 @inproceedings{gul2025csg,
   title={Evaluating Cumulative Spectral Gradient as a Complexity Measure},
   author={Haji Gul and Abdul Ghani Naim and Ajaz Ahmad Bhat},
