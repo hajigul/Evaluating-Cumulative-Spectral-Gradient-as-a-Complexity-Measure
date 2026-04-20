@@ -6,7 +6,7 @@
 
 **Paper:** [ MuSIML in ICML 2025](https://www.musiml.org/events/2025-ICML/accepted_papers.html)
 
-This repository contains the code, figures, and supporting material for our study on the **Cumulative Spectral Gradient (CSG)** as a dataset complexity measure for **knowledge graph (KG) link prediction**. In particular, we evaluate whether CSG is stable across parameter settings and whether it correlates with downstream model performance in multi-class tail-prediction tasks. :contentReference[oaicite:1]{index=1}
+This repository contains the code, figures, and supporting material for our study on the **Cumulative Spectral Gradient (CSG)** as a dataset complexity measure for **knowledge graph (KG) link prediction**. In particular, we evaluate whether CSG is stable across parameter settings and whether it correlates with downstream model performance in multi-class tail-prediction tasks. 
 
 
 ## Datasets
