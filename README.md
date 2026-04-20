@@ -1,23 +1,182 @@
-# Evaluating-Cumulative-Spectral-Gradient-as-a-Complexity-Measure
+# Evaluating Cumulative Spectral Gradient as a Complexity Measure
 
-**Authors:** Haji Gul¹, Abdul Ghani Naim¹, Ajaz Ahmad Bhat¹  
-¹School of Digital Science, Universiti Brunei Darussalam
+**Authors:** Haji Gul, Abdul Ghani Naim, Ajaz Ahmad Bhat  
+**Affiliation:** School of Digital Science, Universiti Brunei Darussalam  
+**Workshop:** MuSIML at ICML 2025  
 
 **Paper:** [ MuSIML in ICML 2025](https://www.musiml.org/events/2025-ICML/accepted_papers.html)
 
+This repository contains the code, figures, and supporting material for our study on the **Cumulative Spectral Gradient (CSG)** as a dataset complexity measure for **knowledge graph (KG) link prediction**. In particular, we evaluate whether CSG is stable across parameter settings and whether it correlates with downstream model performance in multi-class tail-prediction tasks. :contentReference[oaicite:1]{index=1}
+
+
+## Datasets
+
+The code expects datasets to be placed inside the data/ directory, with one subfolder per dataset. Each dataset folder should contain:
+
+```bash
+data/<dataset_name>/
+├── train.txt
+├── valid.txt
+└── test.txt
+```
+Each file should contain KG triplets in plain text format, one triplet per line, for example:
+
+```bash
+head_entity    relation    tail_entity
+```
+Example:
+
+```bash
+BarackObama    bornIn      Hawaii
+Paris          capitalOf   France
+```
+
+## Installation
+
+Clone the repository and install the required Python packages:
+
+```bash
+git clone <your-repo-url>
+cd E-CSG_Complexity_Measur-main
+pip install -r requirements.txt
+Requirements
+```
+
+The repository currently lists the following dependencies:
+
+- torch
+- transformers
+- numpy
+- scipy
+- tqdm
+
+Install them with:
+
+```bash
+pip install torch transformers numpy scipy tqdm
+```
+
+## How to Run
+1. Prepare the dataset  
+Place your dataset in the following format:
+
+```bash
+data/Nations/train.txt
+data/Nations/valid.txt
+data/Nations/test.txt
+```
+Replace Nations with the name of your dataset folder.
+
+2. Run CSG computation for a single dataset  
+From the project root, run:
+
+```bash
+python -m src.main --dataset Nations --base_dir data
+```
+
+
+Arguments
+--dataset: name of the dataset folder inside data/
+--base_dir: base directory containing the dataset folders
+
+Example:
+```bash
+python -m src.main --dataset FB15k-237 --base_dir data
+```
+This will:
+
+- load the dataset triplets
+- group them by tail entity
+- compute BERT embeddings for heads and relations
+- build class-level vectors
+- compute the similarity matrix
+- compute the CSG score
+- save the output to the results/ directory
+
+
+3. Output
+
+After a successful run, the result is saved as:
+```bash
+results/<dataset_name>_csg.txt
+```
+
+Example:
+```bash
+results/Nations_csg.txt
+```
+
+The output file contains:
+
+```bash
+Dataset: Nations
+CSG Measure: 0.123456
+```
+
+4. Run multiple datasets
+
+The repository also includes:
+
+```bash
+src/run_all_datasets.py
+```
+You can edit the dataset list inside that file and then run:
+
+```bash
+python src/run_all_datasets.py
+```
+This is useful when you want to compute CSG across several benchmarks in one pass.
+
+
+
 ---
 
-##  Abstract
+## Overview
 
-Accurate estimation of dataset complexity is crucial for evaluating and comparing link‐prediction models for knowledge graphs (KGs). The Cumulative Spectral Gradient (CSG) metric—derived from probabilistic divergence between classes within a spectral clustering framework— was proposed as a dataset complexity measure that (1) naturally scales with the number of classes and (2) correlates strongly with downstream classification performance. In this work, we rigorously assess CSG’s behavior on standard knowledge‐graph link‐prediction benchmarks—a multi‐class tail‐prediction task— using two key parameters governing its computation: $M$, the number of Monte Carlo–sampled points per class, and $K$, the number of nearest neighbors in the embedding space. Contrary to the original claims, we find that (1) CSG is highly sensitive to the choice of $K$, thereby does not inherently scale with the number of target classes, and (2) CSG values exhibit weak or no correlation with established performance metrics such as mean reciprocal rank (MRR). Through experiments on FB15k‐237, WN18RR, and other standard datasets, we demonstrate that CSG’s purported stability and generalization‐predictive power break down in link‐prediction settings. Our results highlight the need for more robust, classifier-agnostic complexity measures in  KG link-prediction evaluation.
+Estimating dataset complexity is important for understanding and comparing the difficulty of benchmark datasets used in knowledge graph link prediction. CSG was originally proposed as a complexity metric derived from spectral properties of class overlap, with the claim that it scales naturally with the number of classes and correlates with predictive performance. :contentReference[oaicite:2]{index=2}
 
-**Contrary to the original claims**, we find that:
-- CSG is highly sensitive to the choice of **K**, and does **not** inherently scale with the number of target classes.
-- CSG values exhibit **weak or no correlation** with established performance metrics such as **Mean Reciprocal Rank (MRR)**.
+In this work, we revisit those claims in the context of KG tail prediction. We compute class-wise representations from head-relation pairs, build a similarity matrix, derive a graph Laplacian, and then compute the **Cumulative Spectral Gradient (CSG)** from its eigenspectrum. Our experiments on standard KG datasets show that CSG is highly sensitive to parameter choices and does not reliably track model performance. :contentReference[oaicite:3]{index=3}
 
-Through extensive experiments on **FB15k-237**, **WN18RR**, CoDEx variants, and other standard datasets, we demonstrate that CSG’s purported stability and generalization-predictive power break down in link-prediction settings. Our results highlight the need for more robust, classifier-agnostic complexity measures in KG link-prediction evaluation.
+### Main findings
+
+- **CSG is highly sensitive to the nearest-neighbor parameter `K`.**
+- **CSG does not inherently scale with the number of target classes.**
+- **CSG shows weak or no reliable correlation with downstream link-prediction performance such as MRR.**
+
+These findings suggest that CSG is not a robust, classifier-agnostic complexity measure for KG link-prediction evaluation in its current form. :contentReference[oaicite:4]{index=4}
 
 ---
+
+## Abstract
+
+Accurate estimation of dataset complexity is crucial for evaluating and comparing link-prediction models for knowledge graphs. The Cumulative Spectral Gradient (CSG) metric was proposed as a dataset complexity measure derived from probabilistic divergence between classes within a spectral clustering framework. In this repository, we assess CSG on standard KG link-prediction benchmarks under a multi-class tail-prediction setting.
+
+We study the role of two key computation parameters:
+
+- **`M`**: the number of Monte Carlo sampled points per class
+- **`K`**: the number of nearest neighbors in the embedding space
+
+Our experiments show that CSG is strongly affected by the choice of `K`, contradicting prior claims of parameter stability. In addition, CSG values exhibit weak or inconsistent correlation with standard evaluation metrics such as **Mean Reciprocal Rank (MRR)**. We evaluate these behaviors on datasets including **FB15k-237**, **WN18RR**, and **CoDEx** variants, highlighting the need for more reliable complexity measures for KG link prediction. :contentReference[oaicite:5]{index=5}
+
+---
+
+## Method Summary
+
+The pipeline implemented in this repository follows these main steps:
+
+1. **Load triplets** from KG benchmark datasets.
+2. **Group triplets by tail entity**, treating each tail as a class.
+3. **Embed heads and relations** using BERT.
+4. **Concatenate head and relation embeddings** to represent head-relation pairs.
+5. **Aggregate vectors per tail class** to obtain class-level representations.
+6. **Compute class overlap / similarity** between tail classes.
+7. **Construct the graph Laplacian** from the similarity matrix.
+8. **Compute the CSG score** from the Laplacian eigenvalues.
+
+This lets us examine how the spectral complexity score behaves across datasets and parameter settings. :contentReference[oaicite:6]{index=6}
+
+---
+
 
 ## Key Figures
 
@@ -51,50 +210,36 @@ It shows the relationship between CSG values and Mean Reciprocal Rank (MRR) achi
 
 Relationship Between MRR from different tail-prediction models on five standard KG datasets and the corresponding CSG values.
 
----
+
+
+## Poster
+![Poster: CSG vs M and K](KG-CSG_1.png)  
+
+![Poster: CSG vs M and K](KG-CSG_2.png)  
 
 
 
-## Repository Structure
+## Notes
+The current implementation uses BERT-based embeddings for heads and relations.  
+Computation time may increase significantly for large datasets because embedding extraction and pairwise similarity computation can be expensive.  
+Results are stored as plain-text files in the results/ folder for easy inspection and reproducibility.  
+
+
+## How to Cite
+If you use this repository, code, or findings in your work, please cite the corresponding paper:  
 
 ```bash
-csg-kg-complexity/
-├── README.md
-├── requirements.txt
-├── src/
-│   ├── __init__.py
-│   ├── config.py
-│   ├── data_loader.py
-│   ├── embeddings.py
-│   ├── similarity.py
-│   ├── spectral.py
-│   ├── utils.py
-│   └── main.py
-|   └── run_all_datasets.py
-├── data/                     # ← Place your KG datasets here 
-├── results/                  # CSG output files
-
-```
-
-
-
-
-
-
-## Poster   
-![Figure 2: CSG vs M and K](KG-CSG_1.png)  
-
-
-![Figure 2: CSG vs M and K](KG-CSG_2.png)     
-
-
-
-
-
-
 @inproceedings{gul2025csg,  
   title={Evaluating Cumulative Spectral Gradient as a Complexity Measure},  
   author={Haji Gul and Abdul Ghani Naim and Ajaz Ahmad Bhat},  
   booktitle={MusIML Workshop at ICML 2025},  
   year={2025}  
 }
+```
+
+
+## Acknowledgment
+
+This work was carried out at the School of Digital Science, Universiti Brunei Darussalam.
+I can also turn this into a polished **final README.md file** for you.
+
